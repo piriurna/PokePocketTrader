@@ -1,14 +1,14 @@
 package com.piriurna.pokepockettrader.ui.components.cards
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
+import com.piriurna.pokepockettrader.R
 import com.piriurna.pokepockettrader.domain.models.Pokemon
 
 @Composable
@@ -17,15 +17,25 @@ fun PokemonCard(
     pokemon: Pokemon
 ) {
     Box(
-        modifier = modifier.size(200.dp),
+        modifier = modifier,
     ) {
         AsyncImage(
             modifier = Modifier,
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(pokemon.cardImageUrl)
-                .crossfade(true)
-                .build(),
+            model = pokemon.cardImageUrl,
             contentDescription = "pokemon_card",
+            fallback = painterResource(R.drawable.dummy_pokemon_card),
+            error = painterResource(R.drawable.dummy_pokemon_card),
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
         )
     }
+}
+
+
+@Preview
+@Composable
+private fun PokemonCardPreview() {
+    PokemonCard(
+        pokemon = Pokemon.dummyPokemonList.first()
+    )
+
 }

@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.piriurna.pokepockettrader.domain.models.Pokemon
-import com.piriurna.pokepockettrader.ui.components.cards.PokemonCard
-import com.piriurna.pokepockettrader.ui.homescreen.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.piriurna.pokepockettrader.ui.homescreen.PokedexScreen
+import com.piriurna.pokepockettrader.ui.navigation.RootNavigationGraph
 import com.piriurna.pokepockettrader.ui.theme.PokePocketTraderTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,9 +26,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokePocketTraderTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
+                    RootNavigationGraph(
                         modifier = Modifier.padding(innerPadding),
-                        homeViewModel = hiltViewModel()
+                        navController = rememberNavController()
                     )
                 }
             }
