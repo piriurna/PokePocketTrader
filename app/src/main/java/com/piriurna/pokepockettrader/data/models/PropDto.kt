@@ -5,13 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Demand(
-    @SerialName("amount")
-    val amount: String,
-    @SerialName("image")
-    val image: String,
+data class PropDto(
     @SerialName("name")
     val name: String,
-    @SerialName("slug")
-    val slug: String
+    @SerialName("value")
+    val value: String
 )

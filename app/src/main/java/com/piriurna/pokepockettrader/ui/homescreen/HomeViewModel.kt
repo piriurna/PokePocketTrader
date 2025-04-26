@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.piriurna.pokepockettrader.domain.models.Pokemon
 import com.piriurna.pokepockettrader.domain.usecases.GetPokemonListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class HomeViewModel @Inject constructor(
 
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _pokemonList.emit(getPokemonListUseCase())
         }
     }

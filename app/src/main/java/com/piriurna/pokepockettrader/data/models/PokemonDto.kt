@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PokemonDto(
     @SerialName("ability")
-    val ability: List<Ability>,
+    val abilityDto: List<AbilityDto>,
     @SerialName("attack")
-    val attack: List<Attack>,
+    val attackDto: List<AttackDto>,
     @SerialName("color")
     val color: String,
     @SerialName("delta7dPrice")
@@ -23,7 +23,7 @@ data class PokemonDto(
     @SerialName("dex")
     val dex: String,
     @SerialName("flairs")
-    val flairs: List<Flair>,
+    val flairDtos: List<FlairDto>,
     @SerialName("foilPrice")
     val foilPrice: String,
     @SerialName("has_art")
@@ -47,7 +47,7 @@ data class PokemonDto(
     @SerialName("price_date")
     val priceDate: String,
     @SerialName("props")
-    val props: List<Prop>,
+    val propDtos: List<PropDto>,
     @SerialName("rarity")
     val rarity: String,
     @SerialName("retreat")

@@ -1,4 +1,4 @@
-package com.piriurna.pokepockettrader.di
+package com.piriurna.pokepockettrader.ui.di
 
 import com.piriurna.pokepockettrader.data.apis.PokemonApi
 import dagger.Module

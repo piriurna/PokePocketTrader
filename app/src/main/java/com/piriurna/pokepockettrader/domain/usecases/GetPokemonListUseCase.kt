@@ -9,6 +9,14 @@ class GetPokemonListUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(): List<Pokemon> {
-        return pokemonRepository.getPokemonList()
+        val localPokemons = pokemonRepository.getLocalPokemonList()
+
+        if(localPokemons.isEmpty()) {
+            val remotePokemonList = pokemonRepository.getPokemonList()
+
+            pokemonRepository.insertPokemonList(remotePokemonList)
+        }
+
+        return pokemonRepository.getLocalPokemonList()
     }
 }

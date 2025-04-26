@@ -5,11 +5,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FlairX(
+data class FlairXDto(
     @SerialName("count")
     val count: String,
     @SerialName("demands")
-    val demands: List<Demand>,
+    val demandDtos: List<DemandDto>,
     @SerialName("from_date")
     val fromDate: Int,
     @SerialName("image")

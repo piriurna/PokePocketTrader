@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Prop(
-    @SerialName("name")
-    val name: String,
-    @SerialName("value")
-    val value: String
+data class AttackDto(
+    @SerialName("effect")
+    val effect: String,
+    @SerialName("info")
+    val info: String
 )

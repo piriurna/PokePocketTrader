@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Attack(
-    @SerialName("effect")
-    val effect: String,
-    @SerialName("info")
-    val info: String
+data class FlairDto(
+    @SerialName("flairs")
+    val flairs: List<FlairXDto>,
+    @SerialName("routeName")
+    val routeName: String
 )
