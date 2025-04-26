@@ -2,6 +2,7 @@ package com.piriurna.pokepockettrader.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.piriurna.pokepockettrader.domain.user.LoggedUser
 import com.piriurna.pokepockettrader.domain.user.models.User
 import com.piriurna.pokepockettrader.domain.user.usecases.GetOrCreateUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

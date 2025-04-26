@@ -5,6 +5,10 @@ import com.piriurna.pokepockettrader.data.pokemon.daos.PokemonDao
 import com.piriurna.pokepockettrader.data.pokemon.entities.PokemonEntity
 import com.piriurna.pokepockettrader.domain.pokemon.models.Pokemon
 import com.piriurna.pokepockettrader.domain.pokemon.repositories.PokemonRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
@@ -22,14 +26,16 @@ class PokemonRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLocalPokemonList(): List<Pokemon> {
-        return pokemonDao.getAllPokemonWithOwnership("piriurna").map {
-            Pokemon(
-                id = it.pokemon.id,
-                name = it.pokemon.name,
-                cardImageUrl = it.pokemon.imageUrl,
-                owned = it.isOwned
-            )
+    override suspend fun getLocalPokemonList(nickname: String): Flow<List<Pokemon>> {
+        return pokemonDao.getAllPokemonWithOwnership(nickname).map {
+            it.map {
+                Pokemon(
+                    id = it.pokemon.id,
+                    name = it.pokemon.name,
+                    cardImageUrl = it.pokemon.imageUrl,
+                    owned = it.isOwned
+                )
+            }
         }
     }
 

@@ -1,6 +1,8 @@
 package com.piriurna.pokepockettrader.di
 
 import com.piriurna.pokepockettrader.data.pokemon.apis.PokemonApi
+import com.piriurna.pokepockettrader.data.user.LoggedUserImpl
+import com.piriurna.pokepockettrader.domain.user.LoggedUser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,5 +44,11 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoggedUser(): LoggedUser {
+        return LoggedUserImpl()
     }
 }

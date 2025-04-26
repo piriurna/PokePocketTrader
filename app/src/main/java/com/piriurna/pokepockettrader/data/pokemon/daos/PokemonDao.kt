@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.piriurna.pokepockettrader.data.pokemon.entities.PokemonEntity
 import com.piriurna.pokepockettrader.data.pokemon.entities.UserOwnedPokemon
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
@@ -22,5 +23,5 @@ interface PokemonDao {
         FROM Pokemon p
         LEFT JOIN OwnedPokemon op ON p.id = op.pokemonId AND op.ownerId = :currentUserId
     """)
-    suspend fun getAllPokemonWithOwnership(currentUserId: String): List<UserOwnedPokemon>
+    fun getAllPokemonWithOwnership(currentUserId: String): Flow<List<UserOwnedPokemon>>
 }

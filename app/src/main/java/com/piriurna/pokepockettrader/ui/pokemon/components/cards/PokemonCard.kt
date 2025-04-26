@@ -15,7 +15,8 @@ import okhttp3.internal.wait
 @Composable
 fun PokemonCard(
     modifier: Modifier = Modifier,
-    pokemon: Pokemon
+    pokemon: Pokemon,
+
 ) {
     Box(
         modifier = modifier,
