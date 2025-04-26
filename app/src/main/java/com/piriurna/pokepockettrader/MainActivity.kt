@@ -11,11 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.piriurna.pokepockettrader.ui.homescreen.PokedexScreen
-import com.piriurna.pokepockettrader.ui.navigation.RootNavigationGraph
-import com.piriurna.pokepockettrader.ui.theme.PokePocketTraderTheme
+import com.piriurna.pokepockettrader.ui.root.navigation.RootNavigationGraph
+import com.piriurna.pokepockettrader.ui.root.theme.PokePocketTraderTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
