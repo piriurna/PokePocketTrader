@@ -24,8 +24,8 @@ fun PokedexScreen(
     navController: NavController
 ) {
     val viewModel = hiltViewModel<PokedexViewModel>()
-    val pokemonList = viewModel.pokemonList.collectAsState(emptyList())
-    PokedexScreenContent(modifier, pokemonList.value, navController)
+    val pokemonList = viewModel.uiState.value.pokemonList
+    PokedexScreenContent(modifier, pokemonList, navController)
 }
 
 @Composable

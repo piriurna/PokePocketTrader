@@ -28,10 +28,10 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = hiltViewModel()
 
-    val loggedUser = viewModel.loggedUser.collectAsState(null)
+    val loggedUser = viewModel.uiState.value.loggedUser
 
-    LaunchedEffect(loggedUser.value) {
-        if(loggedUser.value != null)
+    LaunchedEffect(loggedUser) {
+        if(loggedUser != null)
             navController.navigate(RootDestinationScreen.App.route)
     }
 
