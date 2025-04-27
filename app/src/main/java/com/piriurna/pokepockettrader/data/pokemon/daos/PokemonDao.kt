@@ -24,4 +24,11 @@ interface PokemonDao {
         LEFT JOIN OwnedPokemon op ON p.id = op.pokemonId AND op.ownerId = :currentUserId
     """)
     fun getAllPokemonWithOwnership(currentUserId: String): Flow<List<UserOwnedPokemon>>
+
+    @Query(
+        """
+            INSERT INTO ownedPokemon (pokemonId, ownerId) VALUES (:pokemonId, :nickname)
+        """
+    )
+    fun addPokemonToUser(pokemonId: String, nickname: String)
 }

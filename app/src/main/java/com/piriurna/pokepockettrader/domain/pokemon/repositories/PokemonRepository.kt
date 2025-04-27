@@ -9,4 +9,6 @@ interface PokemonRepository {
     suspend fun getPokemonList(): List<Pokemon>
 
     suspend fun insertPokemonList(pokemonList: List<Pokemon>)
+
+    suspend fun addOwnedPokemon(pokemon: Pokemon, nickname: String)
 }

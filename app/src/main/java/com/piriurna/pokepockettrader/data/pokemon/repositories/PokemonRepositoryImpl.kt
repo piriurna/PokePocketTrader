@@ -5,9 +5,7 @@ import com.piriurna.pokepockettrader.data.pokemon.daos.PokemonDao
 import com.piriurna.pokepockettrader.data.pokemon.entities.PokemonEntity
 import com.piriurna.pokepockettrader.domain.pokemon.models.Pokemon
 import com.piriurna.pokepockettrader.domain.pokemon.repositories.PokemonRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -49,5 +47,9 @@ class PokemonRepositoryImpl @Inject constructor(
             )
         }
         pokemonDao.insertPokemon(pokemonEntityList)
+    }
+
+    override suspend fun addOwnedPokemon(pokemon: Pokemon, nickname: String) {
+        pokemonDao.addPokemonToUser(pokemon.id, nickname)
     }
 }

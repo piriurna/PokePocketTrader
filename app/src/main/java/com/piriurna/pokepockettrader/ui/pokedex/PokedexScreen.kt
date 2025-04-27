@@ -1,5 +1,6 @@
 package com.piriurna.pokepockettrader.ui.pokedex
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +9,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,24 +24,32 @@ fun PokedexScreen(
     navController: NavController
 ) {
     val viewModel = hiltViewModel<PokedexViewModel>()
-    val pokemonList = viewModel.uiState.value.pokemonList
-    PokedexScreenContent(modifier, pokemonList, navController)
+    val uiState = viewModel.uiState.value
+    PokedexScreenContent(
+        modifier,
+        uiState,
+        navController,
+        viewModel::onCardClicked
+    )
 }
 
 @Composable
 private fun PokedexScreenContent(
     modifier: Modifier = Modifier,
-    pokemonList: List<Pokemon>,
-    navController: NavController = rememberNavController()
+    uiState: PokedexUiState,
+    navController: NavController = rememberNavController(),
+    onCardClicked: (Pokemon) -> Unit
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(125.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            items(pokemonList) {
+            items(uiState.pokemonList) {
                 PokemonCard(
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier
+                        .clickable(enabled = true, onClick = { onCardClicked(it) })
+                        .padding(10.dp),
                     pokemon = it
                 )
             }
@@ -54,6 +62,7 @@ private fun PokedexScreenContent(
 @Composable
 private fun PokedexScreenPreview() {
     PokedexScreenContent(
-        pokemonList = Pokemon.dummyPokemonList
+        uiState = PokedexUiState(pokemonList = Pokemon.dummyPokemonList),
+        onCardClicked = {}
     )
 }

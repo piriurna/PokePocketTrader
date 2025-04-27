@@ -1,8 +1,7 @@
-package com.piriurna.pokepockettrader.di
+package com.piriurna.pokepockettrader.ui.root.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.piriurna.pokepockettrader.data.database.PokeTraderDatabase
 import dagger.Module
 import dagger.Provides

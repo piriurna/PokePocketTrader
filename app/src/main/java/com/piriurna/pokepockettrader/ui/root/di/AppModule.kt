@@ -1,4 +1,4 @@
-package com.piriurna.pokepockettrader.di
+package com.piriurna.pokepockettrader.ui.root.di
 
 import com.piriurna.pokepockettrader.data.pokemon.apis.PokemonApi
 import com.piriurna.pokepockettrader.data.user.LoggedUserImpl

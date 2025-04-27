@@ -2,23 +2,45 @@ package com.piriurna.pokepockettrader.domain.pokemon.usecases
 
 import com.piriurna.pokepockettrader.domain.pokemon.models.Pokemon
 import com.piriurna.pokepockettrader.domain.pokemon.repositories.PokemonRepository
+import com.piriurna.pokepockettrader.domain.root.Resource
+import com.piriurna.pokepockettrader.domain.user.LoggedUser
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 
 class GetPokemonListUseCase @Inject constructor(
-    private val pokemonRepository: PokemonRepository
+    private val pokemonRepository: PokemonRepository,
+    private val loggedUser: LoggedUser
 ) {
 
-    suspend operator fun invoke(nickname: String): Flow<List<Pokemon>> {
-        val localPokemons = pokemonRepository.getLocalPokemonList(nickname).firstOrNull()
+    operator fun invoke(): Flow<Resource<List<Pokemon>>> = flow {
+        emit(Resource.Loading())
 
-        if(localPokemons?.isEmpty() == true) {
+        val loggedUser = loggedUser.getLoggedInNickname()
+
+        if (loggedUser == null) {
+            emit(Resource.Error("User not logged in"))
+            return@flow
+        }
+
+        val shouldFetchRemote = pokemonRepository.getLocalPokemonList(loggedUser)
+            .first()
+            .isEmpty()
+
+        if (shouldFetchRemote) {
             val remotePokemonList = pokemonRepository.getPokemonList()
-
             pokemonRepository.insertPokemonList(remotePokemonList)
         }
 
-        return pokemonRepository.getLocalPokemonList(nickname)
+        pokemonRepository.getLocalPokemonList(loggedUser).collect { localPokemons ->
+            emit(Resource.Success(localPokemons))
+        }
+    }.catch { e ->
+        emit(Resource.Error(e.message ?: "Unknown error"))
     }
 }
