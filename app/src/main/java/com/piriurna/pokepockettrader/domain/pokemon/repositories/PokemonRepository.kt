@@ -11,4 +11,6 @@ interface PokemonRepository {
     suspend fun insertPokemonList(pokemonList: List<Pokemon>)
 
     suspend fun addOwnedPokemon(pokemon: Pokemon, nickname: String)
+
+    suspend fun removeOwnedPokemon(pokemon: Pokemon, nickname: String)
 }

@@ -19,7 +19,7 @@ fun RootNavigationGraph(
     NavHost(
         navController = navController,
         route = Graph.ROOT_GRAPH,
-        startDestination = RootDestinationScreen.Login.route
+        startDestination = RootDestinationScreen.App.route
     ) {
         composable(route = RootDestinationScreen.Login.route) {
             LoginScreen(navController = navController)

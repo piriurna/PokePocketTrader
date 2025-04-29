@@ -4,7 +4,8 @@ data class Pokemon(
     val id: String,
     val name: String,
     val cardImageUrl: String,
-    val owned: Boolean
+    val owned: Boolean,
+    val wishlisted: Boolean = false
 ) {
 
     companion object {
@@ -14,7 +15,8 @@ data class Pokemon(
                     id = "$index",
                     name = "dummy",
                     cardImageUrl = "dummy",
-                    owned = true
+                    owned = true,
+                    wishlisted = false
                 )
             }
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.piriurna.pokepockettrader.domain.pokemon.models.Pokemon
 import com.piriurna.pokepockettrader.domain.pokemon.usecases.AddCardToCurrentUserUseCase
 import com.piriurna.pokepockettrader.domain.pokemon.usecases.GetPokemonListUseCase
+import com.piriurna.pokepockettrader.domain.pokemon.usecases.RemoveCardToCurrentUserUseCase
 import com.piriurna.pokepockettrader.domain.root.Resource
 import com.piriurna.pokepockettrader.ui.root.BaseViewModel
 import com.piriurna.pokepockettrader.ui.root.UiState
@@ -23,7 +24,8 @@ data class PokedexUiState(
 @HiltViewModel
 class PokedexViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase,
-    private val addCardToCurrentUserUseCase: AddCardToCurrentUserUseCase
+    private val addCardToCurrentUserUseCase: AddCardToCurrentUserUseCase,
+    private val removeCardToCurrentUserUseCase: RemoveCardToCurrentUserUseCase,
 ): BaseViewModel<PokedexUiState>() {
     override fun initialValue(): PokedexUiState = PokedexUiState()
 
@@ -45,11 +47,18 @@ class PokedexViewModel @Inject constructor(
         }
     }
 
-    fun onCardClicked(pokemon: Pokemon) {
+    fun onCardClicked(pokemon: Pokemon, action: PokemonActionType) {
         viewModelScope.launch(Dispatchers.IO) {
-            addCardToCurrentUserUseCase(pokemon).collect {
-                updateState(it, onSuccess = {})
+            when(action) {
+                PokemonActionType.ADD -> addCardToCurrentUserUseCase(pokemon).collect {
+                    updateState(it, onSuccess = {})
+                }
+
+                PokemonActionType.REMOVE -> removeCardToCurrentUserUseCase(pokemon).collect {
+                    updateState(it, onSuccess = {})
+                }
             }
+
         }
     }
 

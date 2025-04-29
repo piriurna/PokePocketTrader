@@ -31,4 +31,16 @@ interface PokemonDao {
         """
     )
     fun addPokemonToUser(pokemonId: String, nickname: String)
+
+    @Query(
+        """
+            DELETE FROM ownedPokemon
+            WHERE id IN (
+               SELECT id FROM ownedPokemon
+               WHERE pokemonId =:pokemonId AND ownerId =:nickname
+               LIMIT 1
+            )
+        """
+    )
+    fun removePokemonFromUser(pokemonId: String, nickname: String)
 }

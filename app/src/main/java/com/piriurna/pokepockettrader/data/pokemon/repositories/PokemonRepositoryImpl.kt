@@ -52,4 +52,8 @@ class PokemonRepositoryImpl @Inject constructor(
     override suspend fun addOwnedPokemon(pokemon: Pokemon, nickname: String) {
         pokemonDao.addPokemonToUser(pokemon.id, nickname)
     }
+
+    override suspend fun removeOwnedPokemon(pokemon: Pokemon, nickname: String) {
+        pokemonDao.removePokemonFromUser(pokemon.id, nickname)
+    }
 }

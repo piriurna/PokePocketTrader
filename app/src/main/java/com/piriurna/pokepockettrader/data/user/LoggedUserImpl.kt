@@ -20,6 +20,6 @@ class LoggedUserImpl: LoggedUser {
     }
 
     override fun getLoggedInNickname(): String? {
-        return loggedInUser?.nickname
+        return loggedInUser?.nickname?:"piriurna"
     }
 }
