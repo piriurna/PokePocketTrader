@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.annotationProcessor
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -81,6 +79,6 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    implementation("androidx.room:room-runtime:2.7.1")
+    implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 }

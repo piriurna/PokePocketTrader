@@ -47,9 +47,9 @@ class PokedexViewModel @Inject constructor(
         }
     }
 
-    fun onCardClicked(pokemon: Pokemon, action: PokemonActionType) {
+    fun onCardClicked(pokemon: Pokemon) {
         viewModelScope.launch(Dispatchers.IO) {
-            when(action) {
+            when(PokemonActionType.ADD) {
                 PokemonActionType.ADD -> addCardToCurrentUserUseCase(pokemon).collect {
                     updateState(it, onSuccess = {})
                 }
